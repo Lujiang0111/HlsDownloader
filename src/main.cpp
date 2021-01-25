@@ -167,6 +167,9 @@ int main(int argc, char *argv[])
 	HlsContext *h = new HlsContext();
 	ff_make_absolute_url(h->buf, MAX_URL_SIZE, NULL, sMasterUrl.c_str());
 	h->url = h->buf;
+	std::string filePath, dirPath;
+	GetRelativePath(h->url, filePath, dirPath);
+	PFRemoveFile(dirPath.c_str());
 
 	std::chrono::time_point<std::chrono::steady_clock> nowTime = std::chrono::steady_clock::now();
 	std::chrono::time_point<std::chrono::steady_clock> nextTime = nowTime;
