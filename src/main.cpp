@@ -68,7 +68,7 @@ static void DownloadHls(HlsContext *h)
 	int variantCnt = 0;
 	bool isSegment = false;
 	int segmentCnt = 0;
-	while (!feof(fp))
+	while ((bAppStart) && (!feof(fp)))
 	{
 		fgets(h->buf, MAX_URL_SIZE, fp);
 		std::string line = h->buf;
@@ -84,6 +84,10 @@ static void DownloadHls(HlsContext *h)
 		else if (StringIsStartWith(line, "#EXTINF:"))
 		{
 			isSegment = true;
+		}
+		else if (StringIsStartWith(line, "#EXT-X-ENDLIST"))
+		{
+			std::cout << "Hls Stream meet end!";
 		}
 		else if (StringIsStartWith(line, "#"))
 		{
@@ -187,7 +191,7 @@ int main(int argc, char *argv[])
 
 		DownloadHls(h);
 
-		nextTime += std::chrono::milliseconds(500);
+		nextTime += std::chrono::milliseconds(1000);
 	}
 
 	ClearHlsContext(h);
