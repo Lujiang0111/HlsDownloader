@@ -87,7 +87,7 @@ static void DownloadHls(HlsContext *h)
 		}
 		else if (StringIsStartWith(line, "#EXT-X-ENDLIST"))
 		{
-			std::cout << "Hls Stream meet end!";
+			std::cout << "Hls Stream meet end!" << std::endl;
 		}
 		else if (StringIsStartWith(line, "#"))
 		{
